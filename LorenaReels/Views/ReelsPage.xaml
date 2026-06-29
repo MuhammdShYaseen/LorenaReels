@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:LorenaReels.ViewModels"
+    x:Class="LorenaReels.Views.ReelsPage"
+    x:DataType="vm:ReelsViewModel"
+    BackgroundColor="Black"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- مشغل الفيديو -->
+        <toolkit:MediaElement
+            x:Name="Player"
+            Grid.Row="0"
+            ShouldAutoPlay="True"
+            ShouldLoopPlayback="True"
+            ShouldShowPlaybackControls="False"
+            Aspect="AspectFill"
+            Source="{Binding CurrentVideo.FilePath}"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            BackgroundColor="Black"/>
+
+        <!-- اسم الفيديو في الأسفل -->
+        <VerticalStackLayout
+            Grid.Row="0"
+            VerticalOptions="End"
+            Padding="16,0,16,24">
+            <Label
+                Text="{Binding CurrentVideo.Title}"
+                TextColor="White"
+                FontSize="16"
+                FontAttributes="Bold"
+                LineBreakMode="TailTruncation"/>
+            <Label
+                Text="{Binding CurrentVideo.FilePath}"
+                TextColor="#AAFFFFFF"
+                FontSize="11"
+                LineBreakMode="TailTruncation"/>
+        </VerticalStackLayout>
+
+        <!-- أزرار التنقل -->
+        <HorizontalStackLayout
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            Spacing="32"
+            Padding="0,12,0,32">
+
+            
+
+        </HorizontalStackLayout>
+
+        <!-- Loading -->
+        <ActivityIndicator
+            Grid.Row="0"
+            IsRunning="{Binding IsLoading}"
+            IsVisible="{Binding IsLoading}"
+            Color="White"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
+        <Grid.GestureRecognizers>
+            <SwipeGestureRecognizer
+        Direction="Up"
+        Command="{Binding NextCommand}"/>
+            <SwipeGestureRecognizer
+        Direction="Down"
+        Command="{Binding PreviousCommand}"/>
+        </Grid.GestureRecognizers>
+    </Grid>
+
+    
+
+</ContentPage>
